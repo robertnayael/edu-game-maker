@@ -1,0 +1,13 @@
+{
+    "name": "edu-game-maker",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Create educational games for kids",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start:app": "cd app && npm start",
+        "build:app": "cd app && npm run build"
+    },
+    "license": "MIT"
+}
