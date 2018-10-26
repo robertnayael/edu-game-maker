@@ -1,0 +1,1 @@
+export { RevealPictureDnD } from './RevealPictureDnD'
