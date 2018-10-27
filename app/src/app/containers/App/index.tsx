@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as styles from './styles.scss'
-
+import { game } from '../../../data/mockData'
 import * as games from '../../games'
 
 export namespace App {
@@ -9,6 +9,6 @@ export namespace App {
 
 export class App extends React.Component<App.Props> {
     render() {
-        return <games.RevealPictureDnD/>
+        return <games.RevealPictureDnD {...game} />
     }
 }

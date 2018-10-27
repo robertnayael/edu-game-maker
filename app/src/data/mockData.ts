@@ -1,19 +1,6 @@
-import { TestInterface } from '@shared/types'
+import { Games as GameModels } from '../../models'
 
-export type Game = {
-    id: string
-    title: string
-    image: string
-    pairs: Pair[]
-}
-
-export type Pair = {
-    word: string
-    image: string
-}
-
-const game: Game = {
-    id: '1234567890',
+export const game: GameModels.RevealPictureDnD.Game = {
     title: 'Fruit names',
     image: 'whatever.jpg',
     pairs: [
