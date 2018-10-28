@@ -1,5 +1,5 @@
-import * as React from 'react'
-import * as styles from './styles.scss'
+import React from 'react'
+import styles from './styles.scss'
 import { Games as GameModels } from '../../../../models'
 
 export namespace RevealPictureDnD {
@@ -9,7 +9,14 @@ export namespace RevealPictureDnD {
 
 export class RevealPictureDnD extends React.Component<RevealPictureDnD.Props> {
     render() {
-        console.log(this.props)
-        return <main className={styles.wrapper}></main>
+        const { title, pairs } = this.props
+        return (
+            <main className={styles.wrapper}>
+                <h1 className={styles.title}>{title}</h1>
+                <ul>
+                    { pairs.map(({ image, word }) => <li key={word}>{word}</li>) }
+                </ul>
+            </main>
+        )
     }
 }
