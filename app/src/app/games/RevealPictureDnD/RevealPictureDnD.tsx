@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './styles.scss'
+import { Header } from '../../components'
 import { Games as GameModels } from '../../../../models'
 
 export namespace RevealPictureDnD {
@@ -12,7 +13,7 @@ export class RevealPictureDnD extends React.Component<RevealPictureDnD.Props> {
         const { title, pairs } = this.props
         return (
             <main className={styles.wrapper}>
-                <h1 className={styles.title}>{title}</h1>
+                <Header>{title}</Header>
                 <ul>
                     { pairs.map(({ image, word }) => <li key={word}>{word}</li>) }
                 </ul>
