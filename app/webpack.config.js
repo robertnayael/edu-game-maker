@@ -13,6 +13,7 @@ var WebpackCleanupPlugin = require('webpack-cleanup-plugin')
 
 module.exports = {
     context: sourcePath,
+    devtool: "inline-source-map",
     entry: {
         app: './main.tsx'
     },
