@@ -11,9 +11,10 @@ export namespace App {
 export class App extends React.Component<App.Props> {
     render() {
         return (
-            <ViewportScale ratioX={16} ratioY={9}>
+            <>
+                <ViewportScale ratioX={16} ratioY={9} />
                 <games.RevealPictureDnD {...game} />
-            </ViewportScale>
+            </>
         )
     }
 }
