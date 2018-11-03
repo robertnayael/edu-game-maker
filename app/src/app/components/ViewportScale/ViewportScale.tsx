@@ -21,6 +21,19 @@ export class ViewportScale extends React.PureComponent<ViewportScale.Props, View
     subscription?: Subscription;
 
     handleResize = (vp: ViewportSize) => {
+        const { ratioX, ratioY } = this.props
+        const desiredRatio = ratioX / ratioY
+        const currentRatio = vp.width / vp.height
+        
+        let { width, height } = vp;
+        
+        if (currentRatio > desiredRatio) {
+            width = vp.height * desiredRatio
+            height = vp.height
+        } else {
+            width = vp.width
+            height = vp.width / desiredRatio 
+        }
     }
 
     componentDidMount() {
