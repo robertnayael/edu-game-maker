@@ -7,8 +7,6 @@ export namespace ViewportScale {
         ratioX: number
         ratioY: number
     }
-    export interface State {
-    }
 }
 
 interface ViewportSize {
@@ -16,7 +14,7 @@ interface ViewportSize {
     height: number
 }
 
-export class ViewportScale extends React.PureComponent<ViewportScale.Props, ViewportScale.State> {
+export class ViewportScale extends React.PureComponent<ViewportScale.Props> {
 
     subscription?: Subscription;
 
