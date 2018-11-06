@@ -23,15 +23,10 @@ export class ViewportScale extends React.PureComponent<ViewportScale.Props> {
         const desiredRatio = ratioX / ratioY
         const currentRatio = vp.width / vp.height
         
-        let { width, height } = vp;
-        
-        if (currentRatio > desiredRatio) {
-            width = vp.height * desiredRatio
-            height = vp.height
-        } else {
-            width = vp.width
-            height = vp.width / desiredRatio 
-        }
+        const contentWidth = currentRatio > desiredRatio
+            ? vp.height * desiredRatio
+            : vp.width
+
     }
 
     componentDidMount() {
