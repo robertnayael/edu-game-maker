@@ -26,7 +26,12 @@ export class ViewportScale extends React.PureComponent<ViewportScale.Props> {
         const contentWidth = currentRatio > desiredRatio
             ? vp.height * desiredRatio
             : vp.width
+        
+        this.setRootFontSize(contentWidth / 100)
+    }
 
+    setRootFontSize(fontSize: number) {
+        document!.documentElement!.style.fontSize = `${fontSize}px`
     }
 
     componentDidMount() {
