@@ -1,1 +1,0 @@
-export { ViewportScale } from './ViewportScale'

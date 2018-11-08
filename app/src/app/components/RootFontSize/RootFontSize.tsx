@@ -2,10 +2,10 @@ import React from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { map, startWith, debounceTime } from 'rxjs/operators'
 
-export namespace ViewportScale {
+export namespace RootFontSize {
     export interface Props {
-        ratioX: number
-        ratioY: number
+        viewboxRatioX: number
+        viewboxRatioY: number
     }
 }
 
@@ -14,17 +14,17 @@ interface ViewportSize {
     height: number
 }
 
-export class ViewportScale extends React.PureComponent<ViewportScale.Props> {
+export class RootFontSize extends React.PureComponent<RootFontSize.Props> {
 
     subscription?: Subscription;
 
     handleResize = (vp: ViewportSize) => {
-        const { ratioX, ratioY } = this.props
-        const desiredRatio = ratioX / ratioY
-        const currentRatio = vp.width / vp.height
+        const { viewboxRatioX, viewboxRatioY } = this.props
+        const viewboxRatio = viewboxRatioX / viewboxRatioY
+        const viewportRatio = vp.width / vp.height
         
-        const contentWidth = currentRatio > desiredRatio
-            ? vp.height * desiredRatio
+        const contentWidth = viewboxRatio > viewportRatio
+            ? vp.height * viewboxRatio
             : vp.width
         
         this.setRootFontSize(contentWidth / 100)
