@@ -36,4 +36,10 @@ describe('<RootFontSize />', () => {
         expect(helpers.getRootFontSize()).toBe('10.24px')
     })
 
+    it.skip('recalculates root font size after window resize', () => {})
+
+    it.skip('applies debounce while listening for window resize', () => {})
+
+    it.skip('no longer reacts to window resize events after unmount', () => {})
+
 })
