@@ -23,7 +23,7 @@ export class RootFontSize extends React.PureComponent<RootFontSize.Props> {
         const viewboxRatio = viewboxRatioX / viewboxRatioY
         const viewportRatio = vp.width / vp.height
         
-        const contentWidth = viewboxRatio > viewportRatio
+        const contentWidth = viewboxRatio < viewportRatio
             ? vp.height * viewboxRatio
             : vp.width
         
