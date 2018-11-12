@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 
 import { RootFontSize, DEBOUNCE_TIME } from './RootFontSize'
 
@@ -39,28 +39,28 @@ describe('<RootFontSize />', () => {
 
     it('correctly sets root font size on mount', () => {
         helpers.setViewport(1024, 768)
-        wrapper = mount(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
+        wrapper = shallow(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
         expect(helpers.getRootFontSize()).toBe('7.68px')
         clear()
         
         helpers.setViewport(768, 1024)
-        wrapper = mount(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
+        wrapper = shallow(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
         expect(helpers.getRootFontSize()).toBe('7.68px')
         clear()
 
         helpers.setViewport(1024, 768)
-        wrapper = mount(<RootFontSize viewboxRatioX={2} viewboxRatioY={1} />)
+        wrapper = shallow(<RootFontSize viewboxRatioX={2} viewboxRatioY={1} />)
         expect(helpers.getRootFontSize()).toBe('10.24px')
         clear()
 
         helpers.setViewport(1024, 768)
-        wrapper = mount(<RootFontSize viewboxRatioX={4} viewboxRatioY={3} />)
+        wrapper = shallow(<RootFontSize viewboxRatioX={4} viewboxRatioY={3} />)
         expect(helpers.getRootFontSize()).toBe('10.24px')
     })
 
     it('recalculates root font size after window resize', () => {
         helpers.setViewport(1024, 768)
-        wrapper = mount(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
+        wrapper = shallow(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
         expect(helpers.getRootFontSize()).toBe('7.68px')
 
         helpers.setViewport(1024, 700)
@@ -71,7 +71,7 @@ describe('<RootFontSize />', () => {
 
     it('applies debounce while listening for window resize', () => {
         helpers.setViewport(1024, 768)
-        wrapper = mount(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
+        wrapper = shallow(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
         expect(helpers.getRootFontSize()).toBe('7.68px')
 
         helpers.setViewport(1024, 700)
@@ -86,7 +86,7 @@ describe('<RootFontSize />', () => {
 
     it('no longer reacts to window resize events after unmount', () => {
         helpers.setViewport(1024, 768)
-        wrapper = mount(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
+        wrapper = shallow(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
         expect(helpers.getRootFontSize()).toBe('7.68px')
 
         wrapper.unmount()
