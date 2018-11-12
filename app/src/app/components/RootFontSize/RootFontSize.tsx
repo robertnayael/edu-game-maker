@@ -2,6 +2,8 @@ import React from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { map, startWith, debounceTime } from 'rxjs/operators'
 
+export const DEBOUNCE_TIME = 250
+
 export namespace RootFontSize {
     export interface Props {
         viewboxRatioX: number
@@ -37,7 +39,7 @@ export class RootFontSize extends React.PureComponent<RootFontSize.Props> {
     componentDidMount() {
         this.subscription = fromEvent(window, 'resize')
             .pipe(
-                debounceTime(250),
+                debounceTime(DEBOUNCE_TIME),
                 map(() => window),
                 startWith(window),
                 map(({ innerWidth, innerHeight }) => ({
