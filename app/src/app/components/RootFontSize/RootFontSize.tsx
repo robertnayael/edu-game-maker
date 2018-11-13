@@ -47,10 +47,7 @@ export class RootFontSize extends React.PureComponent<RootFontSize.Props> {
                 debounceTime(DEBOUNCE_TIME),
                 map(() => window),
                 startWith(window),
-                map(({ innerWidth, innerHeight }) => ({
-                    width: innerWidth,
-                    height: innerHeight
-                }))
+                map(getViewportSize)
             )
             .subscribe(this.handleResize)
     }
