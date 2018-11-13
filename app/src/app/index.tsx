@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { App as AppContainer } from 'app/containers/App'
 import { hot } from 'react-hot-loader'
 
