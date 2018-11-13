@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, ShallowWrapper } from 'enzyme'
 
 import { RootFontSize, DEBOUNCE_TIME } from './RootFontSize'
 
@@ -19,7 +19,7 @@ const helpers = {
 
 describe('<RootFontSize />', () => {
 
-    let wrapper;
+    let wrapper: ShallowWrapper;
 
     const clear = () => {
         {
@@ -67,6 +67,15 @@ describe('<RootFontSize />', () => {
         jest.advanceTimersByTime(DEBOUNCE_TIME)
         expect(helpers.getRootFontSize()).toBe('7px')
 
+    })
+
+    it('recalculates root font size as soon as props change', () => {
+        helpers.setViewport(1024, 768)
+        wrapper = shallow(<RootFontSize viewboxRatioX={1} viewboxRatioY={1} />)
+        expect(helpers.getRootFontSize()).toBe('7.68px')
+
+        wrapper.setProps({ viewboxRatioX: 2, viewboxRatioY: 1 })
+        expect(helpers.getRootFontSize()).toBe('10.24px')
     })
 
     it('applies debounce while listening for window resize', () => {

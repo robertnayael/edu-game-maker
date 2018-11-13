@@ -16,6 +16,11 @@ interface ViewportSize {
     height: number
 }
 
+const getViewportSize = (window: Window): ViewportSize => ({
+    width: window.innerWidth,
+    height: window.innerHeight
+})
+
 export class RootFontSize extends React.PureComponent<RootFontSize.Props> {
 
     subscription?: Subscription;
@@ -48,6 +53,10 @@ export class RootFontSize extends React.PureComponent<RootFontSize.Props> {
                 }))
             )
             .subscribe(this.handleResize)
+    }
+
+    componentDidUpdate() {
+        this.handleResize(getViewportSize(window))
     }
 
     componentWillUnmount() {
