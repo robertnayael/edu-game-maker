@@ -1,4 +1,5 @@
 import React from 'react'
+import { viewboxRatio as ratio } from '@app/config'
 import { RootFontSize } from '@app/components'
 import { ContainViewbox } from './ContainViewbox'
 
@@ -15,7 +16,7 @@ export class Layout extends React.PureComponent <Layout.Props>{
     render() {
         return (
             <>
-                <RootFontSize viewboxRatioX={16} viewboxRatioY={9} />
+                <RootFontSize viewboxRatioX={ratio.x} viewboxRatioY={ratio.y} />
                 {this.props.children}
             </>
         )
