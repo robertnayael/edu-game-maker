@@ -6,6 +6,7 @@
         "module": "es6",
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "experimentalDecorators": true,
         "declaration": false,
         "removeComments": true,
@@ -17,7 +18,8 @@
         "lib": ["es2018", "dom"],
         "baseUrl": "src",
         "paths": {
-            "app/*": ["./app/*"]
+            "@app/*": ["app/*"],
+            "@components": ["app/components"],
         }
     },
     "exclude": ["dist", "build", "node_modules", "temp"]
