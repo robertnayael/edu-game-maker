@@ -1,7 +1,7 @@
 import React from 'react'
 import Measure, { BoundingRect } from 'react-measure'
 
-import Context, { ParallaxContext } from './ParallaxContext'
+import Context from './ParallaxContext'
 import styles from './styles.scss'
 import { Layer } from './Layer'
 
