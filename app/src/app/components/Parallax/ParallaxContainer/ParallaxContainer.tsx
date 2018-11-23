@@ -1,11 +1,11 @@
 import React from 'react'
 import Measure, { BoundingRect } from 'react-measure'
 
-import Context from './ParallaxContext'
+import { ParallaxLayer } from '../ParallaxLayer'
+import Context from '../ParallaxContext'
 import styles from './styles.scss'
-import { Layer } from './Layer'
 
-export namespace Parallax {
+export namespace ParallaxContainer {
     export interface Props {
         paused?: boolean
     }
@@ -18,15 +18,15 @@ export namespace Parallax {
     }
 }
 
-export class Parallax extends React.PureComponent <Parallax.Props, Parallax.State> {
+export class ParallaxContainer extends React.PureComponent<ParallaxContainer.Props, ParallaxContainer.State> {
 
-    static Layer = Layer
+    static Layer = ParallaxLayer
 
     static defaultProps = {
         paused: false
     }
 
-    state: Parallax.State = {}
+    state: ParallaxContainer.State = {}
 
     handleMeasurement = ({ width, height }: BoundingRect) => {
         if (!width || !height) return

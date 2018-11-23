@@ -39,7 +39,7 @@ export namespace Layer {
     }
 }
 
-export const Layer = ({ imgSize, ...props }: Layer.Props) => 
+export const ParallaxLayer = ({ imgSize, ...props }: Layer.Props) => 
     <Context.Consumer>
         {({ containerSize, animationPaused }) => 
             <LayerImage

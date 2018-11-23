@@ -1,1 +1,1 @@
-export { Parallax } from './Parallax'
+export { ParallaxContainer as Parallax } from './ParallaxContainer'
