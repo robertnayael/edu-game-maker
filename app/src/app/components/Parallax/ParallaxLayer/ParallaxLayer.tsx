@@ -28,7 +28,7 @@ const getActualImgWidth = (img: { width: number, height: number }, container: { 
     return img.width * currentZoom
 }
 
-export namespace Layer {
+export namespace ParallaxLayer {
     export interface Props {
         img: string,
         imgSize: {
@@ -39,7 +39,7 @@ export namespace Layer {
     }
 }
 
-export const ParallaxLayer = ({ imgSize, ...props }: Layer.Props) => 
+export const ParallaxLayer = ({ imgSize, ...props }: ParallaxLayer.Props) => 
     <Context.Consumer>
         {({ containerSize, animationPaused }) => 
             <LayerImage
