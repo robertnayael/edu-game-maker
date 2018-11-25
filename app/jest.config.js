@@ -19,5 +19,6 @@ module.exports = {
         "\\.scss$": "identity-obj-proxy",
         "^@app/(.*)$": "<rootDir>/src/app/$1",
         "^@components$": "<rootDir>/src/app/components"
-    }
+    },
+    "verbose": false
 }
