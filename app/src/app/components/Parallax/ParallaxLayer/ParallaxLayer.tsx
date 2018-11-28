@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
+import { Subtract } from 'utility-types'
 
 import Context from '../ParallaxContext'
 
@@ -28,24 +29,89 @@ const getActualImgWidth = (img: { width: number, height: number }, container: { 
     return img.width * currentZoom
 }
 
-export namespace ParallaxLayer {
+
+export namespace WithImgSize {
     export interface Props {
-        img: string,
+        img: string
+    }
+
+    export interface InjectedProps {
         imgSize: {
             width: number
             height: number
         }
+    }
+
+    export interface State {
+        imgLoaded: boolean
+        imgSize: {
+            width: number
+            height: number
+        }
+    }
+}
+
+
+const withImgSize = <P extends WithImgSize.InjectedProps>(
+    Component: React.ComponentType<P>
+) =>
+    class WithLoading extends React.Component<
+        Subtract<P, WithImgSize.InjectedProps> & WithImgSize.Props,
+        WithImgSize.State
+    > {
+        state: WithImgSize.State = {
+            imgLoaded: false,
+            imgSize: {
+                width: 928,
+                height: 793
+            }
+        }
+
+        componentDidMount() {
+            const { img } = this.props
+            const image = new Image()
+            image.src = img
+            image.addEventListener('load', () => this.setState({
+                imgLoaded: true,
+                imgSize: {
+                    width: image.naturalWidth,
+                    height: image.naturalHeight
+                }
+            }))
+
+        }
+
+        render() {
+            const props = this.props
+            const { imgLoaded, imgSize } = this.state
+            return imgLoaded
+                ? <Component
+                    {...props}
+                    imgSize={imgSize}
+                />
+                : null
+        }
+    };
+
+
+
+
+export namespace ParallaxLayer {
+    export interface Props extends WithImgSize.InjectedProps {
+        img: string,
         duration: number
     }
 }
 
-export const ParallaxLayer = ({ imgSize, ...props }: ParallaxLayer.Props) => 
-    <Context.Consumer>
-        {({ containerSize, animationPaused }) => 
-            <LayerImage
-                {...props}
-                paused={animationPaused}
-                tileWidth={getActualImgWidth(imgSize, containerSize!)}
-            />
-        }
-    </Context.Consumer>
+export const ParallaxLayer = withImgSize(
+    ({ imgSize, ...props }: ParallaxLayer.Props) => 
+        <Context.Consumer>
+            {({ containerSize, animationPaused }) => 
+                <LayerImage
+                    {...props}
+                    paused={animationPaused}
+                    tileWidth={getActualImgWidth(imgSize, containerSize!)}
+                />
+            }
+        </Context.Consumer>
+)
