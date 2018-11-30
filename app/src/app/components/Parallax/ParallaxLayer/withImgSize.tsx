@@ -33,8 +33,8 @@ export const withImgSize = <P extends withImgSize.InjectedProps>(
         state: withImgSize.State = {
             imgLoaded: false,
             imgSize: {
-                width: 928,
-                height: 793
+                width: 0,
+                height: 0
             }
         }
 
