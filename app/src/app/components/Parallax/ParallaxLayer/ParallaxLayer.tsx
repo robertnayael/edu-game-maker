@@ -18,13 +18,13 @@ const LayerImage = styled.div`
     height: 100%;
     position: absolute;
     background-size: auto 100%;
-    animation: ${props => scroll(props.tileWidth)} linear infinite;
+    animation: ${props => scroll(props.backgroundTileWidth)} linear infinite;
     animation-duration: ${props => props.duration}s;
     animation-play-state: ${props => props.paused ? 'paused' : 'running'};
     background-image: url("${props => props.img}");
 `
 
-const getActualImgWidth = (img: { width: number, height: number }, container: { width: number, height: number }) => {
+const getScaledImgWidth = (img: { width: number, height: number }, container: { width: number, height: number }) => {
     const currentZoom = container.height / img.height
     return img.width * currentZoom
 }
@@ -43,7 +43,7 @@ export const ParallaxLayer = withImgSize(
                 <LayerImage
                     {...props}
                     paused={animationPaused}
-                    tileWidth={getActualImgWidth(imgSize, containerSize!)}
+                    backgroundTileWidth={getScaledImgWidth(imgSize, containerSize!)}
                 />
             }
         </Context.Consumer>
