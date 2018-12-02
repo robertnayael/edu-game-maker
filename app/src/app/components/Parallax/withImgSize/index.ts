@@ -1,0 +1,1 @@
+export { withImgSize } from './withImgSize'

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { withImgSize } from './withImgSize'
+import { withImgSize } from '../withImgSize'
 import Context from '../ParallaxContext'
 
 const scroll = (to: number) => keyframes`
