@@ -1,6 +1,8 @@
 import React from 'react'
 import { Subtract } from 'utility-types'
 
+import { loadImage } from '@app/utils'
+
 export namespace withImgSize {
     export interface Props {
         img: string
@@ -22,7 +24,6 @@ export namespace withImgSize {
     }
 }
 
-
 export const withImgSize = <P extends withImgSize.InjectedProps>(
     Component: React.ComponentType<P>
 ) =>
@@ -40,16 +41,14 @@ export const withImgSize = <P extends withImgSize.InjectedProps>(
 
         componentDidMount() {
             const { img } = this.props
-            const image = new Image()
-            image.src = img
-            image.addEventListener('load', () => this.setState({
-                imgLoaded: true,
-                imgSize: {
-                    width: image.naturalWidth,
-                    height: image.naturalHeight
-                }
-            }))
-
+            loadImage(img).subscribe(image =>
+                this.setState({
+                    imgLoaded: true,
+                    imgSize: {
+                        width: image.naturalWidth,
+                        height: image.naturalHeight
+                    }
+                }))
         }
 
         render() {
