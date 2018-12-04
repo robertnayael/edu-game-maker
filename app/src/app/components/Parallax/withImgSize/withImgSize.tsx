@@ -27,7 +27,7 @@ export namespace withImgSize {
 export const withImgSize = <P extends withImgSize.InjectedProps>(
     Component: React.ComponentType<P>
 ) =>
-    class WithLoading extends React.Component<
+    class WithImgSize extends React.Component<
         Subtract<P, withImgSize.InjectedProps> & withImgSize.Props,
         withImgSize.State
         > {
