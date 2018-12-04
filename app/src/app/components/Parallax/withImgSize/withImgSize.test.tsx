@@ -25,16 +25,40 @@ describe('`withImgSize` HOC', () => {
         const Component = () => null
         const ComponentWithImgSize = withImgSize(Component)
         shallow(<ComponentWithImgSize img="☀" />)
+        
         expect(requestedImagePath).toEqual('☀')
     })
 
-    it.skip('should not render anything until image has loaded', () => {
+    it('should not render anything until image has loaded', () => {
+        const Component = () => null
+        const ComponentWithImgSize = withImgSize(Component)
+        const wrapper = shallow(<ComponentWithImgSize img="whatever" />)
+        
+        expect(wrapper.get(0)).toBeFalsy()
     })
 
-    it.skip('should render wrapped component after image has loaded', () => {
+    it('should render wrapped component after image has loaded', () => {
+        const Component = () => null
+        const ComponentWithImgSize = withImgSize(Component)
+        const wrapper = shallow(<ComponentWithImgSize img="whatever" />)
+        resolveSubscription(new Image())
+        
+        expect(wrapper.find(Component)).toHaveLength(1)
     })
 
-    it.skip('should pass correct imgSize after image has loaded', () => {
+    it('should pass correct imgSize after image has loaded', () => {
+        const Component = () => null
+        const ComponentWithImgSize = withImgSize(Component)
+        const wrapper = shallow(<ComponentWithImgSize img="whatever" />)
+
+        const image = new Image()
+        Object.defineProperty(image, 'naturalWidth', { value: 123 })
+        Object.defineProperty(image, 'naturalHeight', { value: 456 })
+        resolveSubscription(image)
+        const passedSize = wrapper.get(0).props.imgSize
+
+        expect(passedSize.width).toEqual(123)
+        expect(passedSize.height).toEqual(456)
     })
 
 })
