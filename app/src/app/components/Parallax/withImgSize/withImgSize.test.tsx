@@ -2,33 +2,39 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { withImgSize } from './'
 
+let requestedImagePath
+let resolveSubscription
 
-const mockImage = {
-    addEventListener: () => {},
-    set src(img) {}
-}
-
-window['Image'] = () => mockImage
+jest.mock('@app/utils', () => ({
+    loadImage: (path) => {
+        requestedImagePath = path
+        return {
+            subscribe: (cb) => { resolveSubscription = cb }
+        }
+    }
+}))
 
 describe('`withImgSize` HOC', () => {
 
+    beforeEach(() => {
+        requestedImagePath = undefined
+        resolveSubscription = undefined
+    })
+
     it('should attempt to load specified image', () => {
-        const spy = jest.spyOn(mockImage, 'src', 'set')
-        
         const Component = () => null
         const ComponentWithImgSize = withImgSize(Component)
         shallow(<ComponentWithImgSize img="☀" />)
-        
-        expect(spy).toHaveBeenCalledWith('☀')
+        expect(requestedImagePath).toEqual('☀')
     })
 
-    it('should not render anything until image has loaded', () => {
+    it.skip('should not render anything until image has loaded', () => {
     })
 
-    it('should render wrapped component after image has loaded', () => {
+    it.skip('should render wrapped component after image has loaded', () => {
     })
 
-    it('should pass correct imgSize after image has loaded', () => {
+    it.skip('should pass correct imgSize after image has loaded', () => {
     })
 
 })
