@@ -6,19 +6,22 @@ import Context from '../ParallaxContext'
 
 const scroll = (to: number) => keyframes`
     from {
-        background-position-x: 0;
+        /*background-position-x: 0;*/
+        transform: translateX(0);
     }
     to {
-        background-position-x: -${to}px;
+        /*background-position-x: -${to}px;*/
+       transform: translateX(-${to}px);
     }
 `
 
 const LayerImage = styled.div`
-    width: 100%;
+    /*width: 100%;*/
+    width: ${props => props.imgWidth * Math.ceil(props.containerWidth % props.imgWidth)}px;
     height: 100%;
     position: absolute;
     background-size: auto 100%;
-    animation: ${props => scroll(props.backgroundTileWidth)} linear infinite;
+    animation: ${props => scroll(props.imgWidth)} linear infinite;
     animation-duration: ${props => props.duration}s;
     animation-play-state: ${props => props.paused ? 'paused' : 'running'};
     background-image: url("${props => props.img}");
@@ -43,7 +46,8 @@ export const ParallaxLayer = withImgSize(
                 <LayerImage
                     {...props}
                     paused={animationPaused}
-                    backgroundTileWidth={getScaledImgWidth(imgSize, containerSize!)}
+                    imgWidth={getScaledImgWidth(imgSize, containerSize!)}
+                    containerWidth={containerSize!.width}
                 />
             }
         </Context.Consumer>
