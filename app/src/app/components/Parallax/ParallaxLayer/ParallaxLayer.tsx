@@ -6,17 +6,14 @@ import Context from '../ParallaxContext'
 
 const scroll = (to: number) => keyframes`
     from {
-        /*background-position-x: 0;*/
         transform: translateX(0);
     }
     to {
-        /*background-position-x: -${to}px;*/
        transform: translateX(-${to}px);
     }
 `
 
 const LayerImage = styled.div`
-    /*width: 100%;*/
     width: ${props => props.imgWidth * Math.ceil(props.containerWidth % props.imgWidth)}px;
     height: 100%;
     position: absolute;
