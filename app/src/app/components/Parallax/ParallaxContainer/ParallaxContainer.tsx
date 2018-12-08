@@ -1,5 +1,5 @@
 import React from 'react'
-import Measure, { BoundingRect } from 'react-measure'
+import Measure, { BoundingRect, withContentRect, ContentRect } from 'react-measure'
 
 import { ParallaxLayer } from '../ParallaxLayer'
 import Context from '../ParallaxContext'
@@ -28,39 +28,33 @@ export class ParallaxContainer extends React.PureComponent<ParallaxContainer.Pro
 
     state: ParallaxContainer.State = {}
 
-    handleMeasurement = ({ width, height }: BoundingRect) => {
-        if (!width || !height) return
-        this.setState({
-            dimensions: {
-                width,
-                height
-            }
-        })
-    }
+    MeasuredContainer = withContentRect('bounds')(
+        ({ measureRef, measure, contentRect, children }) => (
+            <div
+                ref={measureRef}
+                className={styles.parallaxWrapper}
+            >
+                {contentRect && (children as Function)(contentRect.bounds)}
+            </div>
+        )
+    )
 
     render() {
 
         return (
-            <Measure
-                bounds
-                onResize={({ bounds }) => this.handleMeasurement(bounds!)}
-            >
-                {({ measureRef }) => (
-                    <div
-                        ref={measureRef}
-                        className={styles.parallaxWrapper}
-                    >
-                        <Context.Provider value={{
-                            animationPaused: this.props.paused!,
-                            containerSize: this.state.dimensions
-                        }}>
-                            {this.state.dimensions && this.props.children}
-                        </Context.Provider>
-                    </div>
+            <this.MeasuredContainer>
+                {({ width, height }: BoundingRect) => (
+                    <Context.Provider value={{
+                        animationPaused: this.props.paused!,
+                        containerSize: { width, height }
+                    }}>
+                        {width && height && this.props.children}
+                    </Context.Provider>
                 )}
-            </Measure>
-        ) 
+            </this.MeasuredContainer>
+        )
     }
+
 
 }
 
