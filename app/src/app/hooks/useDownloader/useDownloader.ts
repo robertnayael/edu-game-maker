@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react' 
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 /**
  * Attempts to download the specified resource and reports download progress.
@@ -12,20 +13,17 @@ export const useDownloader = (url: string) => {
     const [error, setError] = useState<boolean>(false)
 
     useEffect(() => {
-        const req = new XMLHttpRequest()
 
-        req.onprogress = e => setProgress(e.loaded / e.total)
-        req.onreadystatechange = e => {
-            if (req.readyState === 4 && req.status === 200) {
-                setResponse(req.response)
-            }
-        }
-        req.onerror = () => setError(true)
-        
-        req.open('get', url)
-        req.send()
+        const source = axios.CancelToken.source()
+        axios
+            .get(url, {
+                onDownloadProgress: (e: ProgressEvent) => setProgress(e.loaded / e.total),
+                cancelToken: source.token
+            })
+            .then(({ data }) => setResponse(data))
+            .catch(() => setError(true))
 
-        return () => req.abort()
+        return () => source.cancel()
     }, [ url ])
 
     return {
