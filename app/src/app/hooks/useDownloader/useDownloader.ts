@@ -10,7 +10,7 @@ import axios from 'axios'
 export const useDownloader = (url: string) => {
     const [response, setResponse] = useState<string|null>(null)
     const [progress, setProgress] = useState<number>(0)
-    const [error, setError] = useState<boolean>(false)
+    const [failure, setFailure] = useState<boolean>(false)
 
     useEffect(() => {
 
@@ -21,7 +21,7 @@ export const useDownloader = (url: string) => {
                 cancelToken: source.token
             })
             .then(({ data }) => setResponse(data))
-            .catch(() => setError(true))
+            .catch(() => setFailure(true))
 
         return () => source.cancel()
     }, [ url ])
@@ -32,6 +32,6 @@ export const useDownloader = (url: string) => {
         /** download progress (a number between 0 and 1, the latter corresponding to 100% progress) */
         progress,
         /** true if there was an error downloading the resource */
-        error
+        failure
     }
 }
