@@ -6,6 +6,9 @@ import { useDownloader } from './useDownloader'
 
 jest.useFakeTimers()
 
+const flushPromises = () =>
+    new Promise(resolve => setImmediate(resolve))
+
 let currentResult: {
     response: any,
     progress: number,
@@ -41,6 +44,7 @@ describe('useDownloader hook', () => {
     afterAll(() => {
         mockAdapter.restore()
         spyGet.mockRestore()
+        clearResult()
     })
 
     it('requests the specified url', async () => {
@@ -64,4 +68,14 @@ describe('useDownloader hook', () => {
         await expect(cancellation).resolves.toBeTruthy()
     })
 
+    it('provides response on completion', async () => {
+        mockAdapter.onGet('some_file').reply(200, 'SOME_DATA')
+
+        render(<StubComponent url="some_file" />)
+        jest.runOnlyPendingTimers()
+        await spyGet
+        await flushPromises()
+
+        await expect(currentResult.response).toBe('SOME_DATA')
+    })
 })
