@@ -78,4 +78,17 @@ describe('useDownloader hook', () => {
 
         await expect(currentResult.response).toBe('SOME_DATA')
     })
+    
+    it('reports download failure', async () => {
+        mockAdapter.onGet('some_file').reply(404)
+
+        render(<StubComponent url="some_file" />)
+        jest.runOnlyPendingTimers()
+        await spyGet
+        await flushPromises()
+
+        await expect(currentResult.failure).toBe(true)
+    })
+    
+    it('reports download progress', () => {})
 })
