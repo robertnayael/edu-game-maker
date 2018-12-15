@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import { render, flushEffects } from 'react-testing-library'
+import { render } from 'react-testing-library'
 import MockAdapter from 'axios-mock-adapter';
 import { useDownloader } from './useDownloader'
 
