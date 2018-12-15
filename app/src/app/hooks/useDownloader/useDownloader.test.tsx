@@ -90,5 +90,25 @@ describe('useDownloader hook', () => {
         await expect(currentResult.failure).toBe(true)
     })
     
-    it('reports download progress', () => {})
+    it('reports download progress', async () => {
+        let updateDownloadProgress = (loaded: number, total: number) => {}
+
+        mockAdapter.onGet('some_file').reply(config => {
+            updateDownloadProgress = (loaded, total) => config.onDownloadProgress!({ loaded, total })
+            return new Promise(() => {})
+        })
+
+        render(<StubComponent url="some_file" />)
+        
+        jest.runOnlyPendingTimers()
+        await spyGet
+
+        expect(currentResult.progress).toBe(0)
+        updateDownloadProgress(10, 100);
+        expect(currentResult.progress).toBe(0.1)
+        updateDownloadProgress(50, 100);
+        expect(currentResult.progress).toBe(0.5)
+        updateDownloadProgress(100, 100);
+        expect(currentResult.progress).toBe(1)
+    })
 })
