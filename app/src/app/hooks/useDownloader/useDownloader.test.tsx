@@ -49,7 +49,7 @@ describe('useDownloader hook', () => {
 
     it('requests the specified url', async () => {
         render(<StubComponent url="something.jpg" />)
-        jest.runAllTimers()
+        jest.runOnlyPendingTimers()
         await spyGet
 
         const requestedUrl = mockAdapter.history.get[0].url
@@ -58,7 +58,7 @@ describe('useDownloader hook', () => {
 
     it('cancels pending request when url changes', async () => {
         const component = render(<StubComponent url="something" />)
-        jest.runAllTimers()
+        jest.runOnlyPendingTimers()
         await spyGet
 
         const cancellation = mockAdapter.history.get[0].cancelToken!.promise
